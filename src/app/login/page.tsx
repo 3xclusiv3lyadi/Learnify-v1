@@ -7,17 +7,28 @@ import {useState} from 'react';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false); // Track registration state
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login/signup logic here
     console.log('Email:', email, 'Password:', password);
-    alert(`Logging in with ${email} and password: ${password} (This is a demo)`);
+    if (isRegistering) {
+      alert(`Registering user with ${email} and password: ${password} (This is a demo)`);
+      // Here will be register feature
+    } else {
+      alert(`Logging in with ${email} and password: ${password} (This is a demo)`);
+      // Here will be logging feature
+    }
+  };
+
+  const toggleForm = () => {
+    setIsRegistering(!isRegistering);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <h1 className="text-3xl font-bold mb-4">Login / Signup</h1>
+      <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
       <p className="text-lg mb-4">Basic Login/Signup Page</p>
 
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-sm">
@@ -43,8 +54,12 @@ const LoginPage = () => {
             required
           />
         </div>
-        <Button type="submit">Login / Signup</Button>
+        <Button type="submit">{isRegistering ? 'Register' : 'Login'}</Button>
       </form>
+
+      <Button variant="link" onClick={toggleForm}>
+        {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}
+      </Button>
     </div>
   );
 };

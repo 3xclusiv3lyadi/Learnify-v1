@@ -94,7 +94,7 @@ const SearchResultsPage = () => {
                 {flashcardsList.map((flashcard, index) => {
                   const [topic, description] = flashcard.split(':').map(str => str.trim());
                   return (
-                    <div key={index} className="flip-card">
+                    <div key={index} className="flip-card" style={{ backgroundColor: '#9ea99c' }}>
                       <div className="flip-card-inner">
                         <div className="flip-card-front">
                           <p className="font-semibold text-lg">{topic}</p>

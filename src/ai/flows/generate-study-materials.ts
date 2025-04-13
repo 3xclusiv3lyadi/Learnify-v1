@@ -1,4 +1,3 @@
-// use server'
 'use server';
 /**
  * @fileOverview Generates study materials for a given topic.
@@ -63,7 +62,7 @@ Diagrams:
 
 Quiz:
 
-Flashcards:`,
+Flashcards: Create at least 10 flashcards. The flashcards should follow the format "term: definition".`,
 });
 
 const generateStudyMaterialsFlow = ai.defineFlow<

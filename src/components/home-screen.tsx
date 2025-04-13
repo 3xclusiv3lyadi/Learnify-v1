@@ -8,6 +8,7 @@ const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Bi
 export const HomeScreen = () => {
   const [imageUrls, setImageUrls] = useState<Record<string, string> | null>(null);
   const [greeting, setGreeting] = useState('');
+  const [welcomeMessage, setWelcomeMessage] = useState('');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -23,6 +24,11 @@ export const HomeScreen = () => {
       const now = new Date();
       const hour = now.getHours();
       let newGreeting = '';
+      let newWelcomeMessage = '';
+
+      // Simple welcome back/new user logic (can be expanded)
+      const isNewUser = Math.random() < 0.5; // Dummy logic
+      newWelcomeMessage = isNewUser ? "New to Learnify? Let's get started!" : "Welcome back! Ready to learn?";
 
       if (hour < 12) {
         newGreeting = 'Good morning!';
@@ -33,6 +39,7 @@ export const HomeScreen = () => {
       }
 
       setGreeting(newGreeting);
+      setWelcomeMessage(newWelcomeMessage);
     };
 
     fetchImages();
@@ -48,7 +55,10 @@ export const HomeScreen = () => {
 
       {/* Greeting Section */}
       {greeting && (
-        <div className="text-2xl font-semibold mb-4">{greeting}</div>
+        <div className="text-2xl font-semibold mb-2">{greeting}</div>
+      )}
+      {welcomeMessage && (
+        <div className="text-xl mb-4">{welcomeMessage}</div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">

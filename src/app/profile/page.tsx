@@ -31,7 +31,7 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: '#eee8b2' }}>
       <Card className="w-full max-w-md bg-card shadow-md rounded-lg overflow-hidden">
         <CardHeader className="flex flex-col items-center justify-center p-6 pb-0 space-y-2">
           <Avatar className="h-24 w-24 rounded-full border-4 border-primary">

@@ -31,48 +31,42 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
-      <Card className="w-full max-w-md bg-background shadow-md rounded-lg overflow-hidden">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-background">
+      <Card className="w-full max-w-md bg-card shadow-md rounded-lg overflow-hidden">
         <CardHeader className="flex flex-col items-center justify-center p-6 pb-0 space-y-2">
           <Avatar className="h-24 w-24 rounded-full border-4 border-primary">
             <AvatarImage src="https://picsum.photos/200/200" alt="Profile Picture" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <CardTitle className="text-2xl font-semibold">{name}</CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            {description}
-          </CardDescription>
+          <CardTitle className="text-2xl font-semibold text-primary">{name}</CardTitle>
+          <CardDescription className="text-sm text-support">{description}</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="flex items-center space-x-2">
-              <span className="font-semibold">Age:</span>
-              <span>{age !== null ? age : 'N/A'}</span>
+              <span className="font-semibold text-secondary">Age:</span>
+              <span className="text-foreground">{age !== null ? age : 'N/A'}</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="font-semibold">Gender:</span>
-              <span>{gender}</span>
+              <span className="font-semibold text-secondary">Gender:</span>
+              <span className="text-foreground">{gender}</span>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="font-semibold">Achievements:</span>
-              <span className="inline-flex items-center rounded-full bg-secondary px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
-                {achievements}
-              </span>
+              <span className="font-semibold text-secondary">Achievements:</span>
+              <Badge variant="secondary">{achievements}</Badge>
             </div>
             <div className="flex items-center space-x-2">
-              <span className="font-semibold">Points:</span>
-              <span className="inline-flex items-center rounded-full bg-support px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
-                {points}
-              </span>
+              <span className="font-semibold text-secondary">Points:</span>
+              <Badge variant="support">{points}</Badge>
             </div>
           </div>
 
           {/* Badges Section */}
           <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-2">Badges Earned</h3>
+            <h3 className="text-lg font-semibold mb-2 text-primary">Badges Earned</h3>
             <div className="flex flex-wrap gap-2">
               {badges.map(badge => (
-                <Badge key={badge}>{badge}</Badge>
+                <Badge key={badge} variant="default">{badge}</Badge>
               ))}
             </div>
           </div>

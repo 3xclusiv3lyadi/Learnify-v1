@@ -33,12 +33,47 @@ export async function getWeeklyLeaderboard(): Promise<LeaderboardEntry[]> {
     {
       userId: 'user2',
       displayName: 'Bob',
-      points: 950,
+      points: 1100,
     },
     {
       userId: 'user3',
       displayName: 'Charlie',
+      points: 1000,
+    },
+    {
+      userId: 'user4',
+      displayName: 'David',
+      points: 950,
+    },
+    {
+      userId: 'user5',
+      displayName: 'Eve',
+      points: 900,
+    },
+    {
+      userId: 'user6',
+      displayName: 'Fiona',
+      points: 850,
+    },
+    {
+      userId: 'user7',
+      displayName: 'George',
       points: 800,
+    },
+    {
+      userId: 'user8',
+      displayName: 'Hannah',
+      points: 750,
+    },
+    {
+      userId: 'user9',
+      displayName: 'Ivy',
+      points: 700,
+    },
+    {
+      userId: 'user10',
+      displayName: 'Jack',
+      points: 650,
     },
   ];
 }

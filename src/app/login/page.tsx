@@ -14,6 +14,7 @@ import {
 
 // Import the Firebase auth instance
 import {auth} from '@/services/firebase';
+import {Icons} from '@/components/icons';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -108,7 +109,11 @@ const LoginPage = () => {
       </form>
 
       <Button variant="outline" onClick={signInWithGoogle} disabled={isLoading}>
-        {isLoading ? 'Loading...' : 'Sign In with Google'}
+        {isLoading ? 'Loading...' : (
+          
+            Sign In with Google
+          
+        )}
       </Button>
 
       <Button variant="link" onClick={toggleForm}>

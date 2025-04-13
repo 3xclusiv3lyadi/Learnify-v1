@@ -83,7 +83,7 @@ const SearchResultsPage = () => {
       {isLoading ? (
         <p>Loading study materials...</p>
       ) : (
-        <div className="w-full max-w-2xl overflow-y-auto">
+        <div className="w-full max-w-2xl overflow-y-auto min-h-[80vh]">
            <Card className="mt-4">
             <CardHeader>
               <CardTitle>Flashcards</CardTitle>
@@ -272,4 +272,3 @@ const SearchResultsPage = () => {
 };
 
 export default SearchResultsPage;
-

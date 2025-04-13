@@ -1,10 +1,9 @@
-
 'use client';
 
 import {useEffect, useState} from 'react';
 import {generateHomeScreenImages} from '@/ai/flows/generate-home-screen-images';
 
-const subjects = ['Physics', 'Chemistry', 'Computer Science'];
+const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History'];
 
 export const HomeScreen = () => {
   const [imageUrls, setImageUrls] = useState<Record<string, string> | null>(null);
@@ -29,7 +28,7 @@ export const HomeScreen = () => {
         Your AI-powered study companion.
       </p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {subjects.map(subject => (
           <div key={subject} className="flex flex-col items-center">
             <h2 className="text-2xl font-semibold mb-2">{subject}</h2>
@@ -50,3 +49,4 @@ export const HomeScreen = () => {
     </div>
   );
 };
+

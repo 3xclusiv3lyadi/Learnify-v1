@@ -82,6 +82,18 @@ const SearchResultsPage = () => {
         <p>Loading study materials...</p>
       ) : (
         <div className="w-full max-w-2xl">
+
+           <Card className="mt-4">
+            <CardHeader>
+              <CardTitle>Flashcards</CardTitle>
+              <CardDescription>Review key terms.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>{studyMaterials.flashcards}</p>
+            </CardContent>
+          </Card>
+
+
           {/* Key Concepts with Internal Links */}
           <Card className="mb-4">
             <CardHeader>
@@ -162,15 +174,7 @@ const SearchResultsPage = () => {
             </CardContent>
           </Card>
 
-          <Card className="mt-4">
-            <CardHeader>
-              <CardTitle>Flashcards</CardTitle>
-              <CardDescription>Review key terms.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>{studyMaterials.flashcards}</p>
-            </CardContent>
-          </Card>
+
         </div>
       )}
     </div>

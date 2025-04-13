@@ -3,10 +3,11 @@
 import {useEffect, useState} from 'react';
 import {generateHomeScreenImages} from '@/ai/flows/generate-home-screen-images';
 
-const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics'];
+const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics', 'Art', 'Music'];
 
 export const HomeScreen = () => {
   const [imageUrls, setImageUrls] = useState<Record<string, string> | null>(null);
+  const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -18,7 +19,24 @@ export const HomeScreen = () => {
       }
     };
 
+    const generateGreeting = () => {
+      const now = new Date();
+      const hour = now.getHours();
+      let newGreeting = '';
+
+      if (hour < 12) {
+        newGreeting = 'Good morning!';
+      } else if (hour < 18) {
+        newGreeting = 'Good afternoon!';
+      } else {
+        newGreeting = 'Good evening!';
+      }
+
+      setGreeting(newGreeting);
+    };
+
     fetchImages();
+    generateGreeting();
   }, []);
 
   return (
@@ -27,6 +45,11 @@ export const HomeScreen = () => {
       <p className="text-lg mb-8 text-center">
         Your AI-powered study companion.
       </p>
+
+      {/* Greeting Section */}
+      {greeting && (
+        <div className="text-2xl font-semibold mb-4">{greeting}</div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {subjects.map(subject => (

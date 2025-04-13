@@ -2,6 +2,7 @@
 
 import {generateStudyMaterials} from '@/ai/flows/generate-study-materials';
 import {generateQuiz, GenerateQuizOutput} from '@/ai/flows/generate-quiz';
+import {summarizeDocument} from '@/ai/flows/summarize-document';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
@@ -12,6 +13,7 @@ import {useEffect, useState} from 'react';
 const SearchResultsPage = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || '';
+  const fileParam = searchParams.get('file'); // Retrieve the file parameter
   const [studyMaterials, setStudyMaterials] = useState({
     keyConcepts: '',
     detailedDescriptions: '',
@@ -27,30 +29,50 @@ const SearchResultsPage = () => {
 
   useEffect(() => {
     const fetchStudyMaterialsAndQuiz = async () => {
-      if (query) {
-        setIsLoading(true);
-        try {
-          const studyMaterialsResult = await generateStudyMaterials({topic: query});
-          setStudyMaterials({
-            keyConcepts: studyMaterialsResult.keyConcepts,
-            detailedDescriptions: studyMaterialsResult.detailedDescriptions,
-            diagrams: studyMaterialsResult.diagrams,
-            quiz: studyMaterialsResult.quiz,
-            flashcards: studyMaterialsResult.flashcards,
-          });
+      setIsLoading(true);
+      try {
+        let studyMaterialsResult;
+        if (query) {
+          studyMaterialsResult = await generateStudyMaterials({topic: query});
+        } else if (fileParam) {
+          // Placeholder for file processing - replace with actual file handling
+          // Create a dummy file for demonstration purposes
+          const dummyFileContent = new Blob(['This is a dummy file content.'], { type: 'text/plain' });
+          const dummyFile = new File([dummyFileContent], fileParam, { type: 'text/plain' });
+          const documentSummary = await summarizeDocument({ file: dummyFile });
 
-          const quizResult = await generateQuiz({topic: query});
-          setQuizQuestions(quizResult);
-        } catch (error) {
-          console.error('Error generating study materials or quiz:', error);
-        } finally {
+          studyMaterialsResult = {
+            keyConcepts: documentSummary.keyConcepts.join('\n'),
+            detailedDescriptions: documentSummary.internalLinks.map(link => link.description).join('\n'),
+            diagrams: '', // No diagrams available from document summary
+            quiz: documentSummary.quizQuestions.join('\n'),
+            flashcards: documentSummary.flashcards.map(card => `${card.front}: ${card.back}`).join('\n'),
+          };
+
+        } else {
           setIsLoading(false);
+          return;
         }
+
+        setStudyMaterials({
+          keyConcepts: studyMaterialsResult.keyConcepts,
+          detailedDescriptions: studyMaterialsResult.detailedDescriptions,
+          diagrams: studyMaterialsResult.diagrams,
+          quiz: studyMaterialsResult.quiz,
+          flashcards: studyMaterialsResult.flashcards,
+        });
+
+        const quizResult = await generateQuiz({topic: query || fileParam || 'General Knowledge'});
+        setQuizQuestions(quizResult);
+      } catch (error) {
+        console.error('Error generating study materials or quiz:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchStudyMaterialsAndQuiz();
-  }, [query]);
+  }, [query, fileParam]);
 
   const keyConceptsList = studyMaterials.keyConcepts.split('\n').filter(Boolean);
   const detailedDescriptionsList = studyMaterials.detailedDescriptions.split('\n').filter(Boolean);
@@ -78,7 +100,7 @@ const SearchResultsPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-4">
-      <h1 className="text-3xl font-bold mb-4">Search Results for: {query}</h1>
+      <h1 className="text-3xl font-bold mb-4">Search Results for: {query || fileParam}</h1>
 
       {isLoading ? (
         <p>Loading study materials...</p>

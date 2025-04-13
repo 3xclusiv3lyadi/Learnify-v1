@@ -1,8 +1,8 @@
 'use server';
 /**
- * @fileOverview Generates study materials for a given topic.
+ * @fileOverview Generates study materials for a given topic or document content.
  *
- * - generateStudyMaterials - A function that generates study materials for a given topic.
+ * - generateStudyMaterials - A function that generates study materials for a given topic or document.
  * - GenerateStudyMaterialsInput - The input type for the generateStudyMaterials function.
  * - GenerateStudyMaterialsOutput - The return type for the generateStudyMaterials function.
  */
@@ -12,7 +12,10 @@ import {z} from 'genkit';
 import {search} from '@/services/search';
 
 const GenerateStudyMaterialsInputSchema = z.object({
-  topic: z.string().describe('The topic to generate study materials for.'),
+  topic: z.string().optional().describe('The topic to generate study materials for.'),
+  documentContent: z.string().optional().describe('The content of the document to generate study materials for.'),
+}).refine(data => data.topic || data.documentContent, {
+  message: "Either topic or documentContent must be provided.",
 });
 export type GenerateStudyMaterialsInput = z.infer<typeof GenerateStudyMaterialsInputSchema>;
 
@@ -33,7 +36,8 @@ const prompt = ai.definePrompt({
   name: 'generateStudyMaterialsPrompt',
   input: {
     schema: z.object({
-      topic: z.string().describe('The topic to generate study materials for.'),
+      topic: z.string().optional().describe('The topic to generate study materials for.'),
+      documentContent: z.string().optional().describe('The content of the document to generate study materials for.'),
       searchResults: z.string().describe('Search results related to the topic'),
     }),
   },
@@ -46,23 +50,27 @@ const prompt = ai.definePrompt({
       flashcards: z.string().describe('Flashcards for the topic.'),
     }),
   },
-  prompt: `You are an AI study assistant. Generate key concepts, detailed descriptions, diagrams, a quiz, and flashcards for the following topic:
+  prompt: `You are an AI study assistant. Generate key concepts, detailed descriptions, diagrams, a quiz, and flashcards for the following topic or document content:
 
-Topic: {{{topic}}}
+  {{#if topic}}
+  Topic: {{{topic}}}
+  {{else}}
+  Document Content: {{{documentContent}}}
+  {{/if}}
 
-Here are some search results related to the topic:
+  Here are some search results related to the topic:
 
-{{searchResults}}
+  {{searchResults}}
 
-Key Concepts:
+  Key Concepts:
 
-Detailed Descriptions:
+  Detailed Descriptions:
 
-Diagrams:
+  Diagrams:
 
-Quiz:
+  Quiz:
 
-Flashcards: Create at least 10 flashcards. The flashcards should follow the format "term: definition".`,
+  Flashcards: Create at least 10 flashcards. The flashcards should follow the format "term: definition".`,
 });
 
 const generateStudyMaterialsFlow = ai.defineFlow<
@@ -73,10 +81,15 @@ const generateStudyMaterialsFlow = ai.defineFlow<
   inputSchema: GenerateStudyMaterialsInputSchema,
   outputSchema: GenerateStudyMaterialsOutputSchema,
 }, async input => {
-  const searchResults = await search(input.topic);
-  const searchResultsString = JSON.stringify(searchResults.map(result => result.content));
+  let searchResultsString = '';
+  if (input.topic) {
+    const searchResults = await search(input.topic);
+    searchResultsString = JSON.stringify(searchResults.map(result => result.content));
+  }
+
   const {output} = await prompt({
     topic: input.topic,
+    documentContent: input.documentContent,
     searchResults: searchResultsString,
   });
   return output!;

@@ -54,6 +54,8 @@ const SearchResultsPage = () => {
 
   const keyConceptsList = studyMaterials.keyConcepts.split('\n').filter(Boolean);
   const detailedDescriptionsList = studyMaterials.detailedDescriptions.split('\n').filter(Boolean);
+    const flashcardsList = studyMaterials.flashcards.split('\n').filter(Boolean);
+
 
   const handleAnswerChange = (questionIndex: number, answer: string) => {
     const newAnswers = [...userAnswers];
@@ -82,14 +84,29 @@ const SearchResultsPage = () => {
         <p>Loading study materials...</p>
       ) : (
         <div className="w-full max-w-2xl">
-
            <Card className="mt-4">
             <CardHeader>
               <CardTitle>Flashcards</CardTitle>
-              <CardDescription>Review key terms.</CardDescription>
+              <CardDescription>Flip the card to review key terms.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>{studyMaterials.flashcards}</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {flashcardsList.map((flashcard, index) => {
+                  const [topic, description] = flashcard.split(':').map(str => str.trim());
+                  return (
+                    <div key={index} className="flip-card">
+                      <div className="flip-card-inner">
+                        <div className="flip-card-front">
+                          <p className="font-semibold text-lg">{topic}</p>
+                        </div>
+                        <div className="flip-card-back">
+                          <p>{description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </CardContent>
           </Card>
 
@@ -114,26 +131,35 @@ const SearchResultsPage = () => {
           </Card>
 
           {/* Detailed Descriptions and Diagrams */}
-          <Accordion type="single" collapsible>
-            {detailedDescriptionsList.map((description, index) => (
-              <AccordionItem key={index} value={`concept-${index}`}>
-                <AccordionTrigger id={`concept-${index}`}>
-                  {keyConceptsList[index] || `Concept ${index + 1}`}
-                </AccordionTrigger>
-                <AccordionContent>
-                  <p className="mb-2">{description}</p>
-                  {/* Example Diagram/Image */}
-                  {studyMaterials.diagrams && (
-                    <img
-                      src="https://picsum.photos/400/200"
-                      alt="Diagram"
-                      className="rounded-md shadow-md"
-                    />
-                  )}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <Card className="mb-4">
+            <CardHeader>
+              <CardTitle>Detailed Descriptions</CardTitle>
+              <CardDescription>Explore in-depth explanations.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <Accordion type="single" collapsible>
+                {detailedDescriptionsList.map((description, index) => (
+                <AccordionItem key={index} value={`concept-${index}`}>
+                    <AccordionTrigger id={`concept-${index}`}>
+                    {keyConceptsList[index] || `Concept ${index + 1}`}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                    <p className="mb-2">{description}</p>
+                    {/* Example Diagram/Image */}
+                    {studyMaterials.diagrams && (
+                        <img
+                        src="https://picsum.photos/400/200"
+                        alt="Diagram"
+                        className="rounded-md shadow-md"
+                        />
+                    )}
+                    </AccordionContent>
+                </AccordionItem>
+                ))}
+            </Accordion>
+            </CardContent>
+          </Card>
+
 
           {/* Quiz (MCQ Implementation) */}
           <Card className="mt-4">
@@ -177,6 +203,60 @@ const SearchResultsPage = () => {
 
         </div>
       )}
+        <style jsx>{`
+        .flip-card {
+          background-color: transparent;
+          width: 300px;
+          height: 200px;
+          border: 1px solid #f1f1f1;
+          perspective: 1000px; /* Remove this if you don't want the 3D effect */
+        }
+
+        /* This container is needed to position the front and back side */
+        .flip-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.8s;
+          transform-style: preserve-3d;
+        }
+
+        /* Do an horizontal flip when the flip-card container is hovered over */
+        .flip-card:hover .flip-card-inner {
+          transform: rotateY(180deg);
+        }
+
+        /* Position the front and back side */
+        .flip-card-front, .flip-card-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          -webkit-backface-visibility: hidden; /* Safari */
+          backface-visibility: hidden;
+        }
+
+        /* Style the front side (fallback if image is missing) */
+        .flip-card-front {
+          background-color: #bbb;
+          color: black;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px;
+        }
+
+        /* Style the back side */
+        .flip-card-back {
+          background-color: dodgerblue;
+          color: white;
+          transform: rotateY(180deg);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 10px;
+        }
+      `}</style>
     </div>
   );
 };

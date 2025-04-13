@@ -73,7 +73,7 @@ const LoginPage = () => {
   };
 
   return (
-    
+    <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
       <p className="text-lg mb-4">Basic Login/Signup Page</p>
 
@@ -111,18 +111,18 @@ const LoginPage = () => {
 
       <Button variant="outline" onClick={signInWithGoogle} disabled={isLoading}>
         {isLoading ? 'Loading...' : (
-          
+          <>
+            <Icons.login className="mr-2 h-4 w-4" />
             Sign In with Google
-          
+          </>
         )}
       </Button>
 
       <Button variant="link" onClick={toggleForm}>
         {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}
       </Button>
-    
+    </div>
   );
 };
 
 export default LoginPage;
-

@@ -4,32 +4,80 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {useState} from 'react';
 
+// Import the functions you need from Firebase auth
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
+
+// Import the Firebase auth instance
+import {auth} from '@/services/firebase';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false); // Track registration state
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // Track error message
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login/signup logic here
-    console.log('Email:', email, 'Password:', password);
-    if (isRegistering) {
-      alert(`Registering user with ${email} and password: ${password} (This is a demo)`);
-      // Here will be register feature
-    } else {
-      alert(`Logging in with ${email} and password: ${password} (This is a demo)`);
-      // Here will be logging feature
+    setIsLoading(true);
+    setErrorMessage(null); // Clear any previous error messages
+
+    try {
+      if (isRegistering) {
+        // Register a new user
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert(`User registered with ${email} successfully!`);
+        // Additional logic after successful registration (e.g., redirect)
+      } else {
+        // Sign in an existing user
+        await signInWithEmailAndPassword(auth, email, password);
+        alert(`User logged in with ${email} successfully!`);
+        // Additional logic after successful login (e.g., redirect)
+      }
+    } catch (error: any) {
+      // Handle errors during registration/login
+      console.error('Firebase authentication error:', error.message);
+      setErrorMessage(error.message); // Set the error message to display
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    setIsLoading(true);
+    setErrorMessage(null);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      alert('User logged in with Google successfully!');
+      // Additional logic after successful Google login (e.g., redirect)
+    } catch (error: any) {
+      console.error('Firebase Google Sign-In error:', error.message);
+      setErrorMessage(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const toggleForm = () => {
     setIsRegistering(!isRegistering);
+    setErrorMessage(null); // Clear error message when toggling form
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
       <p className="text-lg mb-4">Basic Login/Signup Page</p>
+
+      {errorMessage && (
+        <div className="text-red-500 mb-4">Error: {errorMessage}</div>
+      )}
 
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full max-w-sm">
         <div>
@@ -54,8 +102,14 @@ const LoginPage = () => {
             required
           />
         </div>
-        <Button type="submit">{isRegistering ? 'Register' : 'Login'}</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? 'Loading...' : isRegistering ? 'Register' : 'Login'}
+        </Button>
       </form>
+
+      <Button variant="outline" onClick={signInWithGoogle} disabled={isLoading}>
+        {isLoading ? 'Loading...' : 'Sign In with Google'}
+      </Button>
 
       <Button variant="link" onClick={toggleForm}>
         {isRegistering ? 'Already have an account? Login' : "Don't have an account? Register"}

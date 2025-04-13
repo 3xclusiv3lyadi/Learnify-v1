@@ -209,6 +209,7 @@ const SearchResultsPage = () => {
                 <p>{studyMaterials.keyConcepts}</p>
               </CardContent>
             </Card>
+            <div className="mb-8"></div>
 
 
         </div>

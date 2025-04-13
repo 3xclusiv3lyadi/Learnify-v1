@@ -199,6 +199,16 @@ const SearchResultsPage = () => {
               )}
             </CardContent>
           </Card>
+             {/* Topic Summary Section */}
+             <Card className="mt-4">
+              <CardHeader>
+                <CardTitle>Topic Summary</CardTitle>
+                <CardDescription>A brief overview of the topic.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>{studyMaterials.keyConcepts}</p>
+              </CardContent>
+            </Card>
 
 
         </div>

@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="pb-20">
+        <div className="pb-32">
           {children}
         </div>
         <PersistentNavbar />

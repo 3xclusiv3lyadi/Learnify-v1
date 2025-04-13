@@ -1,9 +1,11 @@
 'use client';
 
 import {generateStudyMaterials} from '@/ai/flows/generate-study-materials';
+import {generateQuiz, GenerateQuizOutput} from '@/ai/flows/generate-quiz';
 import {Button} from '@/components/ui/button';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {Accordion, AccordionContent, AccordionItem, AccordionTrigger} from '@/components/ui/accordion';
+import {RadioGroup, RadioGroupItem} from '@/components/ui/radio-group';
 import {useSearchParams} from 'next/navigation';
 import {useEffect, useState} from 'react';
 
@@ -17,48 +19,60 @@ const SearchResultsPage = () => {
     quiz: '',
     flashcards: '',
   });
+  const [quizQuestions, setQuizQuestions] = useState<GenerateQuizOutput | null>(null);
+  const [userAnswers, setUserAnswers] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchStudyMaterials = async () => {
+    const fetchStudyMaterialsAndQuiz = async () => {
       if (query) {
         setIsLoading(true);
         try {
-          const result = await generateStudyMaterials({topic: query});
+          const studyMaterialsResult = await generateStudyMaterials({topic: query});
           setStudyMaterials({
-            keyConcepts: result.keyConcepts,
-            detailedDescriptions: result.detailedDescriptions,
-            diagrams: result.diagrams,
-            quiz: result.quiz,
-            flashcards: result.flashcards,
+            keyConcepts: studyMaterialsResult.keyConcepts,
+            detailedDescriptions: studyMaterialsResult.detailedDescriptions,
+            diagrams: studyMaterialsResult.diagrams,
+            quiz: studyMaterialsResult.quiz,
+            flashcards: studyMaterialsResult.flashcards,
           });
+
+          const quizResult = await generateQuiz({topic: query});
+          setQuizQuestions(quizResult);
         } catch (error) {
-          console.error('Error generating study materials:', error);
+          console.error('Error generating study materials or quiz:', error);
         } finally {
           setIsLoading(false);
         }
       }
     };
 
-    fetchStudyMaterials();
+    fetchStudyMaterialsAndQuiz();
   }, [query]);
 
   const keyConceptsList = studyMaterials.keyConcepts.split('\n').filter(Boolean);
   const detailedDescriptionsList = studyMaterials.detailedDescriptions.split('\n').filter(Boolean);
 
-  // Dummy quiz questions (replace with actual data)
-  const quizQuestions = [
-    {
-      question: 'What is the capital of France?',
-      options: ['Berlin', 'Madrid', 'Paris', 'Rome'],
-      correctAnswer: 'Paris',
-    },
-    {
-      question: 'Which planet is known as the Red Planet?',
-      options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
-      correctAnswer: 'Mars',
-    },
-  ];
+  const handleAnswerChange = (questionIndex: number, answer: string) => {
+    const newAnswers = [...userAnswers];
+    newAnswers[questionIndex] = answer;
+    setUserAnswers(newAnswers);
+  };
+
+  const calculateScore = () => {
+    let correctAnswers = 0;
+    if (quizQuestions && quizQuestions.quizQuestions) {
+      quizQuestions.quizQuestions.forEach((question, index) => {
+        if (userAnswers[index] === question.correctAnswer) {
+          correctAnswers++;
+        }
+      });
+      setScore(correctAnswers);
+    }
+    setIsQuizSubmitted(true);
+  };
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-4">
@@ -116,26 +130,35 @@ const SearchResultsPage = () => {
               <CardDescription>Test your knowledge!</CardDescription>
             </CardHeader>
             <CardContent>
-              {quizQuestions.map((q, index) => (
-                <div key={index} className="mb-4">
-                  <p className="font-semibold">{q.question}</p>
-                  <ul className="list-none pl-0">
-                    {q.options.map((option, optionIndex) => (
-                      <li key={optionIndex} className="mb-2">
-                        <label className="inline-flex items-center">
-                          <input
-                            type="radio"
-                            name={`question-${index}`}
-                            value={option}
-                            className="mr-2"
-                          />
-                          {option}
-                        </label>
-                      </li>
-                    ))}
-                  </ul>
+              {quizQuestions && quizQuestions.quizQuestions ? (
+                quizQuestions.quizQuestions.map((q, index) => (
+                  <div key={index} className="mb-4">
+                    <p className="font-semibold">{q.question}</p>
+                    <RadioGroup onValueChange={value => handleAnswerChange(index, value)}>
+                      {q.options.map((option, optionIndex) => (
+                        <div key={optionIndex} className="mb-2">
+                          <RadioGroupItem value={option} id={`question-${index}-option-${optionIndex}`} className="mr-2" />
+                          <label htmlFor={`question-${index}-option-${optionIndex}`} className="inline-flex items-center">
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </RadioGroup>
+                  </div>
+                ))
+              ) : (
+                <p>Loading quiz questions...</p>
+              )}
+              <Button onClick={calculateScore} disabled={isQuizSubmitted}>
+                Submit Quiz
+              </Button>
+              {isQuizSubmitted && (
+                <div className="mt-4">
+                  <p>
+                    You scored {score} out of {quizQuestions?.quizQuestions.length}!
+                  </p>
                 </div>
-              ))}
+              )}
             </CardContent>
           </Card>
 

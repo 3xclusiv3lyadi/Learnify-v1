@@ -1,19 +1,27 @@
 'use client';
 
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
+import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import {useEffect, useState} from 'react';
 
 const ProfilePage = () => {
+  const [name, setName] = useState<string>('John Doe');
   const [age, setAge] = useState<number | null>(null);
   const [gender, setGender] = useState<string>('Unknown');
   const [description, setDescription] = useState<string>('No description available.');
   const [achievements, setAchievements] = useState<number>(0);
   const [points, setPoints] = useState<number>(0);
+  const [badges, setBadges] = useState<string[]>([
+    'Genius Badge',
+    'Achiever Badge',
+    'Smart Badge',
+  ]); // Example badges
 
   useEffect(() => {
     // Simulate fetching user data (replace with actual data fetching)
     setTimeout(() => {
+      setName('John Doe');
       setAge(25);
       setGender('Male');
       setDescription('A passionate learner and knowledge seeker.');
@@ -30,7 +38,7 @@ const ProfilePage = () => {
             <AvatarImage src="https://picsum.photos/200/200" alt="Profile Picture" />
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
-          <CardTitle className="text-2xl font-semibold">John Doe</CardTitle>
+          <CardTitle className="text-2xl font-semibold">{name}</CardTitle>
           <CardDescription className="text-sm text-muted-foreground">
             {description}
           </CardDescription>
@@ -56,6 +64,16 @@ const ProfilePage = () => {
               <span className="inline-flex items-center rounded-full bg-support px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                 {points}
               </span>
+            </div>
+          </div>
+
+          {/* Badges Section */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold mb-2">Badges Earned</h3>
+            <div className="flex flex-wrap gap-2">
+              {badges.map(badge => (
+                <Badge key={badge}>{badge}</Badge>
+              ))}
             </div>
           </div>
         </CardContent>

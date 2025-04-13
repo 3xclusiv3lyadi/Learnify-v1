@@ -28,10 +28,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <div className="pb-20">
+          {children}
+        </div>
         <PersistentNavbar />
         <Toaster />
       </body>
     </html>
   );
 }
+

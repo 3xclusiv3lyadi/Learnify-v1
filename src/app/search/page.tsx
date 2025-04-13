@@ -3,13 +3,16 @@
 import {Input} from '@/components/ui/input';
 import {Button} from '@/components/ui/button';
 import {useState} from 'react';
+import {useRouter} from 'next/navigation';
 
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
 
   const handleSearch = () => {
-    // Implement your search logic here, e.g., API call or data filtering
-    console.log('Searching for:', searchQuery);
+    if (searchQuery) {
+      router.push(`/search/results?query=${searchQuery}`);
+    }
   };
 
   return (
@@ -27,8 +30,6 @@ const SearchPage = () => {
         />
         <Button onClick={handleSearch}>Search</Button>
       </div>
-
-      <p className="text-lg">Basic Search Page</p>
     </div>
   );
 };

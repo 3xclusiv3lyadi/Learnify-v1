@@ -258,8 +258,8 @@ const SearchResultsPage = () => {
 
         /* Style the back side */
         .flip-card-back {
-          background-color: dodgerblue;
-          color: white;
+          background-color: #d4d0b9;
+          color: black;
           transform: rotateY(180deg);
           display: flex;
           align-items: center;

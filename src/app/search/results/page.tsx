@@ -46,6 +46,20 @@ const SearchResultsPage = () => {
   const keyConceptsList = studyMaterials.keyConcepts.split('\n').filter(Boolean);
   const detailedDescriptionsList = studyMaterials.detailedDescriptions.split('\n').filter(Boolean);
 
+  // Dummy quiz questions (replace with actual data)
+  const quizQuestions = [
+    {
+      question: 'What is the capital of France?',
+      options: ['Berlin', 'Madrid', 'Paris', 'Rome'],
+      correctAnswer: 'Paris',
+    },
+    {
+      question: 'Which planet is known as the Red Planet?',
+      options: ['Earth', 'Mars', 'Jupiter', 'Venus'],
+      correctAnswer: 'Mars',
+    },
+  ];
+
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-4">
       <h1 className="text-3xl font-bold mb-4">Search Results for: {query}</h1>
@@ -95,14 +109,33 @@ const SearchResultsPage = () => {
             ))}
           </Accordion>
 
-          {/* Quiz and Flashcards (Basic Implementation) */}
+          {/* Quiz (MCQ Implementation) */}
           <Card className="mt-4">
             <CardHeader>
               <CardTitle>Quiz</CardTitle>
               <CardDescription>Test your knowledge!</CardDescription>
             </CardHeader>
             <CardContent>
-              <p>{studyMaterials.quiz}</p>
+              {quizQuestions.map((q, index) => (
+                <div key={index} className="mb-4">
+                  <p className="font-semibold">{q.question}</p>
+                  <ul className="list-none pl-0">
+                    {q.options.map((option, optionIndex) => (
+                      <li key={optionIndex} className="mb-2">
+                        <label className="inline-flex items-center">
+                          <input
+                            type="radio"
+                            name={`question-${index}`}
+                            value={option}
+                            className="mr-2"
+                          />
+                          {option}
+                        </label>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </CardContent>
           </Card>
 

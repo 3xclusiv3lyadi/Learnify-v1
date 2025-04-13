@@ -43,6 +43,7 @@ body {
     --sidebar-border: 30, 20%, 75%;
     --sidebar-ring: 145, 59%, 26%;
     --gold: 51, 100%, 50%;
+    --support: 39, 53%, 47%;
   }
   .dark {
     --background: 34, 57%, 11%;
@@ -78,6 +79,7 @@ body {
     --sidebar-border: 34, 24%, 35%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     --gold: 51, 100%, 50%;
+    --support: 39, 53%, 47%;
   }
 }
 
@@ -89,4 +91,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-

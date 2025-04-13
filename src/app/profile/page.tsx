@@ -42,7 +42,7 @@ const ProfilePage = () => {
           <CardDescription className="text-sm text-support">{description}</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 text-black">
             <div className="flex items-center space-x-2">
               <span className="font-semibold text-secondary">Age:</span>
               <span className="text-foreground">{age !== null ? age : 'N/A'}</span>
@@ -62,7 +62,7 @@ const ProfilePage = () => {
           </div>
 
           {/* Badges Section */}
-          <div className="mt-6">
+          <div className="mt-6 text-black">
             <h3 className="text-lg font-semibold mb-2 text-primary">Badges Earned</h3>
             <div className="flex flex-wrap gap-2">
               {badges.map(badge => (
@@ -77,4 +77,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-

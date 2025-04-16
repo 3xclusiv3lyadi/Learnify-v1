@@ -3,7 +3,7 @@
 import {useEffect, useState} from 'react';
 import {generateHomeScreenImages} from '@/ai/flows/generate-home-screen-images';
 
-const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics', 'Art', 'Music'];
+const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics'];
 
 export const HomeScreen = () => {
   const [imageUrls, setImageUrls] = useState<Record<string, string> | null>(null);
@@ -82,4 +82,5 @@ export const HomeScreen = () => {
     </div>
   );
 };
+
 

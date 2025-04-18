@@ -1,4 +1,4 @@
-
+/* Custom styles */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -92,3 +92,67 @@ body {
   }
 }
 
+/* Bubble styles */
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float 4s infinite;
+}
+
+.bubble-1 {
+  width: 30px;
+  height: 30px;
+  background-color: #48252f;
+  left: 10%;
+  top: 20%;
+  animation-delay: 0s;
+}
+
+.bubble-2 {
+  width: 50px;
+  height: 50px;
+  background-color: #857861;
+  left: 30%;
+  top: 40%;
+  animation-delay: 1s;
+}
+
+.bubble-3 {
+  width: 20px;
+  height: 20px;
+  background-color: #48252f;
+  left: 50%;
+  top: 30%;
+  animation-delay: 2s;
+}
+
+.bubble-4 {
+  width: 40px;
+  height: 40px;
+  background-color: #857861;
+  left: 70%;
+  top: 50%;
+  animation-delay: 3s;
+}
+
+.bubble-5 {
+  width: 25px;
+  height: 25px;
+  background-color: #48252f;
+  left: 90%;
+  top: 10%;
+  animation-delay: 0.5s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

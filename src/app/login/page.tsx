@@ -74,7 +74,13 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: '#f5efeb' }}>
+    <div className="flex flex-col items-center justify-center min-h-screen p-4 relative" style={{ backgroundColor: '#f5efeb' }}>
+      {/* Bubble Decorations */}
+      <div className="bubble bubble-1"></div>
+      <div className="bubble bubble-2"></div>
+      <div className="bubble bubble-3"></div>
+      <div className="bubble bubble-4"></div>
+      <div className="bubble bubble-5"></div>
       
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
 
@@ -127,4 +133,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

@@ -41,7 +41,13 @@ const HomeScreen = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-4" style={{ backgroundColor: '#E7D4BB' }}>
+    <div className="flex flex-col items-center justify-start min-h-screen p-4 relative" style={{ backgroundColor: '#E7D4BB' }}>
+      {/* Bubble Decorations */}
+      <div className="bubble bubble-1"></div>
+      <div className="bubble bubble-2"></div>
+      <div className="bubble bubble-3"></div>
+      <div className="bubble bubble-4"></div>
+      <div className="bubble bubble-5"></div>
        {/* Top Navigation Bar */}
        <div className="w-full bg-[#48252f] text-white p-4 flex items-center justify-between rounded-md shadow-md mb-4">
         <div className="flex items-center space-x-4">

@@ -42,13 +42,13 @@ export const PersistentNavbar = () => {
           <li key={item.href}>
             <Link
               href={item.href}
-              className={`flex flex-col items-center justify-center ${
+              className={`flex flex-col items-center justify-center transition-colors duration-300 ${
                 pathname === item.href
                   ? 'text-primary'
                   : 'text-foreground hover:text-primary'
               }`}
             >
-              <item.icon className="h-6 w-6 mb-1" style={{ color: '#101211' }} />
+              <item.icon className="h-6 w-6 mb-1 transition-transform duration-300 hover:scale-110" style={{ color: '#101211' }} />
               <span className="text-xs" style={{ color: '#101211' }}>{item.label}</span>
             </Link>
           </li>

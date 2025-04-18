@@ -22,7 +22,7 @@ const LeaderboardPage = () => {
     // Set confetti to stop after 3 seconds
     const confettiTimeout = setTimeout(() => {
       setIsConfettiRunning(false);
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(confettiTimeout); // Clear timeout on unmount
   }, []);

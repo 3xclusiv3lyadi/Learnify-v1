@@ -66,8 +66,16 @@ const HomeScreen = () => {
         </div>
         {/* You can add more navigation items here if needed */}
       </div>
-            {/* AI Generated Sticker */}
-            <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+            {/* Motivational Quote */}
+            <p className="text-md italic text-center mb-4">
+        "The expert in anything was once a beginner." - Helen Hayes
+      </p>
+
+      {/* What is Learnify Heading */}
+      <h2 className="text-4xl font-bold mb-4" style={{color: '#29281e', fontFamily: 'Times New Roman'}}>What is Learnify</h2>
+
+       {/* AI Generated Sticker */}
+       <div className="mb-4">
         <Image
           src="https://picsum.photos/200/300" // Replace with actual AI-generated image URL when available
           alt="AI Student"
@@ -76,13 +84,6 @@ const HomeScreen = () => {
           className="rounded-lg shadow-md"
         />
       </div>
-      {/* Motivational Quote */}
-      <p className="text-md italic text-center mb-4">
-        "The expert in anything was once a beginner." - Helen Hayes
-      </p>
-
-      {/* What is Learnify Heading */}
-      <h2 className="text-4xl font-bold mb-4" style={{color: '#29281e', fontFamily: 'Times New Roman'}}>What is Learnify</h2>
 
       <p className="text-md text-center mb-4" style={{fontSize: '1.2rem', fontFamily: 'Times New Roman'}}>
         Learnify is a smart learning app that turns your notes and PDFs into flashcards, quizzes, key topic summaries, and visual explanations—all powered by AI. Whether you're cramming for exams or revising daily, Learnify makes studying faster, smarter, and fun. Upload a file or search a topic, and let Learnify break it down for you—one concept at a time.

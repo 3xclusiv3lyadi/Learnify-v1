@@ -60,6 +60,9 @@ const HomeScreen = () => {
         "The expert in anything was once a beginner." - Helen Hayes
       </p>
 
+      {/* What is Learnify Heading */}
+      <h2 className="text-4xl font-bold mb-4" style={{color: '#29281e', fontFamily: 'Times New Roman'}}>What is Learnify</h2>
+
       {user ? (
         <>
           {/* User Profile Section */}

@@ -1,4 +1,3 @@
-
 'use client';
 
 import {Icons} from '@/components/icons';
@@ -49,8 +48,8 @@ export const PersistentNavbar = () => {
                   : 'text-foreground hover:text-primary'
               }`}
             >
-              <item.icon className="h-6 w-6 mb-1" />
-              <span className="text-xs">{item.label}</span>
+              <item.icon className="h-6 w-6 mb-1" style={{ color: '#101211' }} />
+              <span className="text-xs" style={{ color: '#101211' }}>{item.label}</span>
             </Link>
           </li>
         ))}
@@ -58,3 +57,4 @@ export const PersistentNavbar = () => {
     </nav>
   );
 };
+

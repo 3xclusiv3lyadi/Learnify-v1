@@ -55,6 +55,11 @@ const HomeScreen = () => {
         {/* You can add more navigation items here if needed */}
       </div>
 
+      {/* Motivational Quote */}
+      <p className="text-md italic text-center mb-4">
+        "The expert in anything was once a beginner." - Helen Hayes
+      </p>
+
       {user ? (
         <>
           {/* User Profile Section */}
@@ -128,4 +133,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-

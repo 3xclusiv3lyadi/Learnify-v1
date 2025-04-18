@@ -6,6 +6,9 @@ import {Icons} from '@/components/icons';
 import {Button} from '@/components/ui/button';
 import {useRouter} from 'next/navigation';
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
+import {Badge} from '@/components/ui/badge';
+import {Card, CardContent} from '@/components/ui/card';
 
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
@@ -40,23 +43,37 @@ const HomeScreen = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-4">
       {user ? (
-        // Logged-in User Greeting Card
-        <div className="w-full max-w-md p-6 rounded-lg shadow-md bg-white/90 backdrop-blur-sm border border-gray-200">
-          <h1 className="text-2xl font-semibold mb-2">
-            {greeting}, {user.displayName || 'Learner'}!
-          </h1>
-          <p className="text-md mb-4">Ready to learn something new today?</p>
+        <>
+          {/* User Profile Section */}
+          <Card className="w-full max-w-md p-4 mb-4 rounded-lg shadow-md bg-white/90 backdrop-blur-sm border border-gray-200">
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-12 w-12 rounded-full">
+                <AvatarImage src="https://picsum.photos/200/200" alt="Profile Picture" />
+                <AvatarFallback>{user.displayName?.substring(0, 2) || 'JD'}</AvatarFallback>
+              </Avatar>
+              <div>
+                <h2 className="text-lg font-semibold">{user.displayName || 'Learner'}</h2>
+                <div className="flex items-center space-x-2">
+                  <span className="text-sm font-medium">XP:</span>
+                  <Badge variant="secondary">1200</Badge>
+                </div>
+              </div>
+            </div>
+          </Card>
 
-          {/* Lottie Animation */}
-          {/* <div className="w-32 h-32 mx-auto mb-4">
-            <Lottie loop animationData={lottieJson} play />
-          </div> */}
+          {/* Logged-in User Greeting Card */}
+          <div className="w-full max-w-md p-6 rounded-lg shadow-md bg-white/90 backdrop-blur-sm border border-gray-200">
+            <h1 className="text-2xl font-semibold mb-2">
+              {greeting}, {user.displayName || 'Learner'}!
+            </h1>
+            <p className="text-md mb-4">Ready to learn something new today?</p>
 
-          {/* Motivational Quote */}
-          <p className="text-sm italic text-center">
-            "The expert in anything was once a beginner." - Helen Hayes
-          </p>
-        </div>
+            {/* Motivational Quote */}
+            <p className="text-sm italic text-center">
+              "The expert in anything was once a beginner." - Helen Hayes
+            </p>
+          </div>
+        </>
       ) : (
         // Guest User Prompt
         <div className="text-center">
@@ -98,4 +115,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-

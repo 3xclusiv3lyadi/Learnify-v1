@@ -65,11 +65,6 @@ const prompt = ai.definePrompt({
   Key Concepts:
 
   Detailed Descriptions:
-  {{#if topic}}
-    {{#eq topic "Mathematics"}}
-      Include equations, and detailed steps if possible.
-    {{/eq}}
-  {{/if}}
 
   Diagrams:
 

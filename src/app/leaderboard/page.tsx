@@ -5,9 +5,11 @@ import {getWeeklyLeaderboard, LeaderboardEntry} from '@/services/leaderboard';
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
+import Confetti from 'react-confetti';
 
 const LeaderboardPage = () => {
   const [leaderboardData, setLeaderboardData] = useState<LeaderboardEntry[]>([]);
+  const [isConfettiRunning, setIsConfettiRunning] = useState(true); // State for confetti
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -16,6 +18,13 @@ const LeaderboardPage = () => {
     };
 
     fetchLeaderboard();
+
+    // Set confetti to stop after 3 seconds
+    const confettiTimeout = setTimeout(() => {
+      setIsConfettiRunning(false);
+    }, 3000);
+
+    return () => clearTimeout(confettiTimeout); // Clear timeout on unmount
   }, []);
 
   // Determine the top three entries
@@ -23,6 +32,14 @@ const LeaderboardPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen p-4">
+      {/* Confetti component */}
+      {isConfettiRunning && (
+        <Confetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false} // Prevents confetti from disappearing
+        />
+      )}
       <h1 className="text-3xl font-bold mb-4">Weekly Leaderboard</h1>
 
       {/* Top Three Display */}

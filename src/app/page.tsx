@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 import {generateHomeScreenImages} from '@/ai/flows/generate-home-screen-images';
 import Link from 'next/link';
+import {Button} from '@/components/ui/button';
 
 const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics'];
 
@@ -93,6 +94,13 @@ const HomeScreen = () => {
       <Link href="/search" className="mb-4 text-blue-500 hover:underline">
         Explore all these subjects and more with Learnify
       </Link>
+
+      <Button asChild>
+        <Link href="/search">
+          Explore all these subjects and more with Learnify
+        </Link>
+      </Button>
+
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {subjects.map(subject => (

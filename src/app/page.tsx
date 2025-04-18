@@ -10,6 +10,8 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent} from '@/components/ui/card';
 import Image from 'next/image';
+import Lottie from 'react-lottie-player';
+import lottieJson from '../../public/lottie.json';
 
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
@@ -80,6 +82,16 @@ const HomeScreen = () => {
       <p className="text-md text-center mb-4" style={{fontSize: '1.2rem', fontFamily: 'Times New Roman'}}>
         Learnify is a smart learning app that turns your notes and PDFs into flashcards, quizzes, key topic summaries, and visual explanations—all powered by AI. Whether you're cramming for exams or revising daily, Learnify makes studying faster, smarter, and fun. Upload a file or search a topic, and let Learnify break it down for you—one concept at a time.
       </p>
+
+            {/* Animated Flowchart */}
+            <div className="w-full max-w-md mb-4">
+        <Lottie
+          loop
+          animationData={lottieJson}
+          play
+          style={{ width: '100%', height: 200 }}
+        />
+      </div>
 
       {user ? (
         <>

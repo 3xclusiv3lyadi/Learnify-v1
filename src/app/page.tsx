@@ -12,13 +12,15 @@ import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/compo
 import Image from 'next/image';
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
+import {chatWithGemini} from '@/ai/flows/chat-with-gemini';
+
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
   const router = useRouter();
   const [greeting, setGreeting] = useState('');
   const [open, setOpen] = useState(true);
   const [messages, setMessages] = useState([
-    { text: 'Hello! How can I help you today?', sender: 'bot' }
+    { text: 'Hello! I am Pixie, Learnify\'s own chatbot. How can I help you today?', sender: 'bot' }
   ]);
   const [newMessage, setNewMessage] = useState('');
 
@@ -42,17 +44,22 @@ const HomeScreen = () => {
     generateGreeting();
   }, []);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (newMessage.trim() !== '') {
       // Add user message to the chat
       const userMessage = { text: newMessage, sender: 'user' };
       setMessages([...messages, userMessage]);
 
-      // Simulate bot response (replace with actual AI logic)
-      setTimeout(() => {
-        const botResponse = { text: 'Thanks for your message! I am a demo chatbot, so I cannot process it right now.', sender: 'bot' };
+      // Call the chatWithGemini flow to get the bot's response
+      try {
+        const geminiResponse = await chatWithGemini({ message: newMessage });
+        const botResponse = { text: geminiResponse.response, sender: 'bot' };
         setMessages(prevMessages => [...prevMessages, botResponse]);
-      }, 500);
+      } catch (error) {
+        console.error('Error getting response from Gemini:', error);
+        const botResponse = { text: 'Sorry, I encountered an error. Please try again later.', sender: 'bot' };
+        setMessages(prevMessages => [...prevMessages, botResponse]);
+      }
 
       // Clear the input
       setNewMessage('');

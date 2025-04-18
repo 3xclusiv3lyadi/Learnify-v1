@@ -73,7 +73,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: '#f5efeb' }}>
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
       <p className="text-lg mb-4">Basic Login/Signup Page</p>
 

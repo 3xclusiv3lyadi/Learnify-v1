@@ -5,13 +5,13 @@ import {useAuth} from '@/hooks/use-auth';
 import {Icons} from '@/components/icons';
 import {Button} from '@/components/ui/button';
 import {useRouter} from 'next/navigation';
-import Lottie from 'react-lottie-player';
-import lottieJson from '../../public/lottie.json';
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
 
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
   const router = useRouter();
   const [greeting, setGreeting] = useState('');
+  const [open, setOpen] = useState(true);
 
   useEffect(() => {
     const generateGreeting = () => {
@@ -48,9 +48,9 @@ const HomeScreen = () => {
           <p className="text-md mb-4">Ready to learn something new today?</p>
 
           {/* Lottie Animation */}
-          <div className="w-32 h-32 mx-auto mb-4">
+          {/* <div className="w-32 h-32 mx-auto mb-4">
             <Lottie loop animationData={lottieJson} play />
-          </div>
+          </div> */}
 
           {/* Motivational Quote */}
           <p className="text-sm italic text-center">
@@ -60,14 +60,37 @@ const HomeScreen = () => {
       ) : (
         // Guest User Prompt
         <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Welcome to Learnify!</h1>
-          <p className="text-lg mb-4">
-            Please register or login to continue your learning journey.
-          </p>
-          <Button onClick={() => router.push('/login')}>
-            <Icons.login className="mr-2 h-4 w-4" />
-            Get Started
-          </Button>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Welcome to Learnify!</DialogTitle>
+                <DialogDescription>
+                  Embark on a journey of knowledge with us.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="space-y-2">
+                  <h2 className="text-lg font-semibold">Quote of the Day</h2>
+                  <p className="text-sm italic">
+                    "Education is the most powerful weapon which you can use to change the world." - Nelson Mandela
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <img
+                    src="https://picsum.photos/400/200"
+                    alt="Educational"
+                    className="rounded-md shadow-md"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end">
+                <Button onClick={() => router.push('/login')}>
+                  <Icons.login className="mr-2 h-4 w-4"/>
+                  Get Started
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       )}
     </div>

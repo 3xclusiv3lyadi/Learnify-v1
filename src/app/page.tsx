@@ -195,7 +195,7 @@ const HomeScreen = () => {
               <div className="w-full max-w-md mt-8">
                 <Card>
                   <CardHeader>
-                    <CardTitle>Learnify AI Chatbot</CardTitle>
+                    <CardTitle>Pixie</CardTitle>
                     <CardDescription>Ask me anything about studying!</CardDescription>
                   </CardHeader>
                   <CardContent className="p-4">

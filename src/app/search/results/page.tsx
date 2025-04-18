@@ -239,7 +239,7 @@ const SearchResultsPage = () => {
         <style jsx>{`
         .flip-card {
           background-color: transparent;
-          width: 300px;
+          width: 350px; /* Increased width here */
           height: 200px;
           border: 1px solid #f1f1f1;
           perspective: 1000px; /* Remove this if you don't want the 3D effect */

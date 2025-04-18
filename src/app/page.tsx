@@ -9,6 +9,7 @@ import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Dia
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent} from '@/components/ui/card';
+import Image from 'next/image';
 
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
@@ -65,7 +66,16 @@ const HomeScreen = () => {
         </div>
         {/* You can add more navigation items here if needed */}
       </div>
-
+            {/* AI Generated Sticker */}
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+        <Image
+          src="https://picsum.photos/100/150" // Replace with actual AI-generated image URL when available
+          alt="AI Student"
+          width={100}
+          height={150}
+          className="rounded-lg shadow-md"
+        />
+      </div>
       {/* Motivational Quote */}
       <p className="text-md italic text-center mb-4">
         "The expert in anything was once a beginner." - Helen Hayes

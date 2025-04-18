@@ -105,7 +105,7 @@ const SearchResultsPage = () => {
       {isLoading ? (
         <p>Loading study materials...</p>
       ) : (
-        <div className="w-full max-w-2xl overflow-y-auto min-h-[80vh]">
+        <div className="w-full max-w-4xl overflow-y-auto min-h-[80vh]">
            <Card className="mt-4">
             <CardHeader>
               <CardTitle>Flashcards</CardTitle>
@@ -288,6 +288,12 @@ const SearchResultsPage = () => {
           align-items: center;
           justify-content: center;
           padding: 10px;
+        }
+
+        @media (max-width: 768px) {
+          .flip-card {
+            width: 100%; /* Make flashcards full width on smaller screens */
+          }
         }
       `}</style>
     </div>

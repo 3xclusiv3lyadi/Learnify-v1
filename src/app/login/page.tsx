@@ -75,13 +75,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4" style={{ backgroundColor: '#f5efeb' }}>
-      <Image
-        src="/learnifylogo.png"
-        alt="Learnify Logo"
-        width={200}
-        height={100}
-        className="mb-4"
-      />
+      
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
 
       {errorMessage && (
@@ -133,3 +127,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+

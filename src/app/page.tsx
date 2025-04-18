@@ -69,10 +69,10 @@ const HomeScreen = () => {
             {/* AI Generated Sticker */}
             <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
         <Image
-          src="https://picsum.photos/100/150" // Replace with actual AI-generated image URL when available
+          src="https://picsum.photos/200/300" // Replace with actual AI-generated image URL when available
           alt="AI Student"
-          width={100}
-          height={150}
+          width={200}
+          height={300}
           className="rounded-lg shadow-md"
         />
       </div>

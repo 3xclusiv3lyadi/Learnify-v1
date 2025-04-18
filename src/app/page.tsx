@@ -91,10 +91,6 @@ const HomeScreen = () => {
         </div>
       )}
 
-      <Link href="/search" className="mb-4 text-blue-500 hover:underline">
-        Explore all these subjects and more with Learnify
-      </Link>
-
       <Button asChild>
         <Link href="/search">
           Explore all these subjects and more with Learnify

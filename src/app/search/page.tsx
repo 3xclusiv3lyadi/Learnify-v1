@@ -66,6 +66,16 @@ const SearchPage = () => {
         />
         <Button onClick={handleFileUpload} disabled={!selectedFile}>Upload</Button>
       </div>
+
+      {/* Image and Quote Section */}
+      <img
+        src="https://picsum.photos/400/200"
+        alt="Books"
+        className="rounded-lg shadow-md w-3/4 mb-4"
+      />
+      <p className="text-md italic mb-4 text-center w-3/4">
+        "The only way to do great work is to love what you do." - Steve Jobs
+      </p>
     </div>
   );
 };

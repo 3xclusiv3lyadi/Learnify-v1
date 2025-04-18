@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import {generateHomeScreenImages} from '@/ai/flows/generate-home-screen-images';
 import Link from 'next/link';
 import {Button} from '@/components/ui/button';
+import Image from 'next/image';
 
 const subjects = ['Physics', 'Chemistry', 'Computer Science', 'Mathematics', 'Biology', 'History', 'Geography', 'Economics'];
 
@@ -64,7 +65,13 @@ const HomeScreen = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-2">
-      <h1 className="text-4xl font-bold mb-4">Welcome to Learnify!</h1>
+      <Image
+        src="/learnifylogo.png"
+        alt="Learnify Logo"
+        width={200}
+        height={100}
+        className="mb-4"
+      />
       
       <img
         src="https://picsum.photos/400/200"

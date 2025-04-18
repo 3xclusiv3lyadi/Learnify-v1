@@ -41,7 +41,19 @@ const HomeScreen = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen p-4">
+    <div className="flex flex-col items-center justify-start min-h-screen p-4" style={{ backgroundColor: '#E7D4BB' }}>
+       {/* Top Navigation Bar */}
+       <div className="w-full bg-[#48252f] text-white p-4 flex items-center justify-between rounded-md shadow-md mb-4">
+        <div className="flex items-center space-x-4">
+          <Avatar className="h-8 w-8 rounded-full">
+            <AvatarImage src="https://picsum.photos/200/200" alt="Profile Picture" />
+            <AvatarFallback>{user?.displayName?.substring(0, 2) || 'JD'}</AvatarFallback>
+          </Avatar>
+          <span className="text-sm font-medium">{user?.displayName || 'Learner'}</span>
+        </div>
+        {/* You can add more navigation items here if needed */}
+      </div>
+
       {user ? (
         <>
           {/* User Profile Section */}

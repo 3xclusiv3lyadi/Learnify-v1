@@ -97,6 +97,10 @@ const HomeScreen = () => {
         </div>
       </div>
 
+        <Button onClick={() => router.push('/search')} className="transition-all duration-300 hover:scale-105">
+            Get Started
+        </Button>
+
 
       {user ? (
         <>

@@ -5,17 +5,22 @@ import {useAuth} from '@/hooks/use-auth';
 import {Icons} from '@/components/icons';
 import {Button} from '@/components/ui/button';
 import {useRouter} from 'next/navigation';
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger} from "@/components/ui/dialog";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Badge} from '@/components/ui/badge';
 import {Card, CardContent} from '@/components/ui/card';
 import Image from 'next/image';
-
+import {Input} from "@/components/ui/input";
+import {Textarea} from "@/components/ui/textarea";
 const HomeScreen = () => {
   const {user, isLoading} = useAuth();
   const router = useRouter();
   const [greeting, setGreeting] = useState('');
   const [open, setOpen] = useState(true);
+  const [messages, setMessages] = useState([
+    { text: 'Hello! How can I help you today?', sender: 'bot' }
+  ]);
+  const [newMessage, setNewMessage] = useState('');
 
   useEffect(() => {
     const generateGreeting = () => {
@@ -37,6 +42,22 @@ const HomeScreen = () => {
     generateGreeting();
   }, []);
 
+  const handleSendMessage = () => {
+    if (newMessage.trim() !== '') {
+      // Add user message to the chat
+      const userMessage = { text: newMessage, sender: 'user' };
+      setMessages([...messages, userMessage]);
+
+      // Simulate bot response (replace with actual AI logic)
+      setTimeout(() => {
+        const botResponse = { text: 'Thanks for your message! I am a demo chatbot, so I cannot process it right now.', sender: 'bot' };
+        setMessages(prevMessages => [...prevMessages, botResponse]);
+      }, 500);
+
+      // Clear the input
+      setNewMessage('');
+    }
+  };
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -170,6 +191,39 @@ const HomeScreen = () => {
           </Dialog>
         </div>
       )}
+              {/* Chatbot Section */}
+              <div className="w-full max-w-md mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Learnify AI Chatbot</CardTitle>
+                    <CardDescription>Ask me anything about studying!</CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-4">
+                    {/* Chat messages display */}
+                    <div className="mb-4 h-64 overflow-y-auto">
+                      {messages.map((message, index) => (
+                        <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
+                          <span className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-200' : 'bg-gray-200'}`}>
+                            {message.text}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Message input and send button */}
+                    <div className="flex">
+                      <Input
+                        type="text"
+                        placeholder="Type your message here..."
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        className="flex-grow mr-2"
+                      />
+                      <Button onClick={handleSendMessage}>Send</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
     </div>
   );
 };

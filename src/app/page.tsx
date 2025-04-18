@@ -65,19 +65,10 @@ const HomeScreen = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-2">
-      <Image
-        src="/learnifylogo.png"
-        alt="Learnify Logo"
-        width={200}
-        height={100}
-        className="mb-4"
-      />
       
-      <img
-        src="https://picsum.photos/400/200"
-        alt="Two students studying"
-        className="rounded-lg shadow-md w-3/4 mb-4"
-      />
+      
+       
+      
       
       <p className="text-lg mb-8 text-center">
         Your AI-powered study companion.
@@ -98,33 +89,9 @@ const HomeScreen = () => {
         </div>
       )}
 
-      <Button asChild>
-        <Link href="/search">
-          Explore all these subjects and more with Learnify
-        </Link>
-      </Button>
+      
 
-
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {subjects.map(subject => (
-          <div key={subject} className="flex flex-col items-center">
-            <h2 className="text-2xl font-semibold mb-2">{subject}</h2>
-            <Link href={`/subjects/${subject.toLowerCase().replace(/ /g, '-')}`}>
-              {imageUrls && imageUrls[subject] ? (
-                <img
-                  src={imageUrls[subject]}
-                  alt={subject}
-                  className="rounded-lg shadow-md w-full h-48 object-cover"
-                />
-              ) : (
-                <div className="w-full h-48 bg-muted rounded-lg shadow-md flex items-center justify-center">
-                  Loading image...
-                </div>
-              )}
-            </Link>
-          </div>
-        ))}
-      </div>
+      
     </div>
   );
 };

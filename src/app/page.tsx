@@ -10,6 +10,7 @@ const HomeScreen = () => {
   const [imageUrls, setImageUrls] = useState<Record<string, string> | null>(null);
   const [greeting, setGreeting] = useState('');
   const [welcomeMessage, setWelcomeMessage] = useState('');
+  const [quote, setQuote] = useState('');
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -43,8 +44,21 @@ const HomeScreen = () => {
       setWelcomeMessage(newWelcomeMessage);
     };
 
+    const generateQuote = () => {
+      const quotes = [
+        "The beautiful thing about learning is nobody can take it away from you. - B.B. King",
+        "Education is the most powerful weapon which you can use to change the world. - Nelson Mandela",
+        "Live as if you were to die tomorrow. Learn as if you were to live forever. - Mahatma Gandhi",
+        "The only way to do great work is to love what you do. - Steve Jobs",
+        "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+      ];
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      setQuote(quotes[randomIndex]);
+    };
+
     fetchImages();
     generateGreeting();
+    generateQuote();
   }, []);
 
   return (
@@ -60,6 +74,13 @@ const HomeScreen = () => {
       )}
       {welcomeMessage && (
         <div className="text-xl mb-4">{welcomeMessage}</div>
+      )}
+
+      {/* Quote Section */}
+      {quote && (
+        <div className="text-md italic mb-4 text-center w-3/4">
+          "{quote}"
+        </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -87,3 +108,4 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
+

@@ -83,7 +83,6 @@ const LoginPage = () => {
         className="mb-4"
       />
       <h1 className="text-3xl font-bold mb-4">{isRegistering ? 'Register' : 'Login'}</h1>
-      <p className="text-lg mb-4">Basic Login/Signup Page</p>
 
       {errorMessage && (
         <div className="text-red-500 mb-4">Error: {errorMessage}</div>

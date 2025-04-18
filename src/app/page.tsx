@@ -80,7 +80,22 @@ const HomeScreen = () => {
       <p className="text-md text-center mb-4" style={{fontSize: '1.2rem', fontFamily: 'Times New Roman'}}>
         Learnify is a smart learning app that turns your notes and PDFs into flashcards, quizzes, key topic summaries, and visual explanations—all powered by AI. Whether you're cramming for exams or revising daily, Learnify makes studying faster, smarter, and fun. Upload a file or search a topic, and let Learnify break it down for you—one concept at a time.
       </p>
-
+              {/* How Learnify Works Section */}
+              <h2 className="text-2xl font-semibold mt-8 mb-4">How Learnify Works:</h2>
+      <div className="flex flex-col items-center">
+        <div className="flex items-center mb-4">
+          <span className="mr-2">1. Upload PDF or Search Topic</span>
+          <Icons.file className="h-5 w-5 text-gray-700" />
+        </div>
+        <div className="flex items-center mb-4">
+          <span className="mr-2">2. Generate Flashcards and Notes</span>
+          <Icons.edit className="h-5 w-5 text-gray-700" />
+        </div>
+        <div className="flex items-center mb-4">
+          <span className="mr-2">3. Answer Quizzes</span>
+          <Icons.check className="h-5 w-5 text-gray-700" />
+        </div>
+      </div>
 
 
       {user ? (

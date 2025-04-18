@@ -8,7 +8,7 @@ import {useRouter} from 'next/navigation';
 import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/components/ui/dialog";
 import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar';
 import {Badge} from '@/components/ui/badge';
-import {Card, CardContent} from '@/components/ui/card';
+import {Card, CardContent, CardDescription, CardHeader, CardTitle} from '@/components/ui/card';
 import Image from 'next/image';
 import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";

@@ -37,7 +37,7 @@ const prompt = ai.definePrompt({
   input: {
     schema: z.object({
       topic: z.string().optional().describe('The topic to generate study materials for.'),
-      documentContent: z.string().optional().describe('The content of the document to generate study materials for.'),
+      documentContent: z.string().optional().describe('The content of the document to summarize.'),
       searchResults: z.string().describe('Search results related to the topic'),
     }),
   },
@@ -65,6 +65,11 @@ const prompt = ai.definePrompt({
   Key Concepts:
 
   Detailed Descriptions:
+  {{#if topic}}
+    {{#eq topic "Mathematics"}}
+      Include equations, and detailed steps if possible.
+    {{/eq}}
+  {{/if}}
 
   Diagrams:
 

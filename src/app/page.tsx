@@ -8,9 +8,7 @@ const HomeScreen = () => {
        
       
       
-      <p className="text-lg mb-8 text-center">
-        Your AI-powered study companion.
-      </p>
+    
 
       
     </div>

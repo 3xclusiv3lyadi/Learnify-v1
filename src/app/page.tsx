@@ -64,6 +64,13 @@ const HomeScreen = () => {
   return (
     <div className="flex flex-col items-center justify-start min-h-screen py-2">
       <h1 className="text-4xl font-bold mb-4">Welcome to Learnify!</h1>
+      
+      <img
+        src="https://picsum.photos/400/200"
+        alt="Two students studying"
+        className="rounded-lg shadow-md w-3/4 mb-4"
+      />
+      
       <p className="text-lg mb-8 text-center">
         Your AI-powered study companion.
       </p>

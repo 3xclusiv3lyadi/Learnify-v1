@@ -76,7 +76,7 @@ const SearchResultsPage = () => {
 
   const keyConceptsList = studyMaterials.keyConcepts.split('\n').filter(Boolean);
   const detailedDescriptionsList = studyMaterials.detailedDescriptions.split('\n').filter(Boolean);
-    const flashcardsList = studyMaterials.flashcards.split('\n').filter(Boolean);
+  const flashcardsList = studyMaterials.flashcards.split('\n').filter(Boolean);
 
 
   const handleAnswerChange = (questionIndex: number, answer: string) => {
@@ -106,13 +106,13 @@ const SearchResultsPage = () => {
         <p>Loading study materials...</p>
       ) : (
         <div className="w-full max-w-4xl overflow-y-auto min-h-[80vh]">
-           <Card className="mt-4">
+          <Card className="mt-4">
             <CardHeader>
               <CardTitle>Flashcards</CardTitle>
               <CardDescription>Flip the card to review key terms.</CardDescription>
             </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <CardContent className="px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {flashcardsList.map((flashcard, index) => {
                   const [topic, description] = flashcard.split(':').map(str => str.trim());
                   return (
@@ -131,7 +131,6 @@ const SearchResultsPage = () => {
               </div>
             </CardContent>
           </Card>
-
 
           {/* Key Concepts with Internal Links */}
           <Card className="mb-4">
@@ -159,29 +158,28 @@ const SearchResultsPage = () => {
               <CardDescription>Explore in-depth explanations.</CardDescription>
             </CardHeader>
             <CardContent>
-                <Accordion type="single" collapsible>
+              <Accordion type="single" collapsible>
                 {detailedDescriptionsList.map((description, index) => (
-                <AccordionItem key={index} value={`concept-${index}`}>
+                  <AccordionItem key={index} value={`concept-${index}`}>
                     <AccordionTrigger id={`concept-${index}`}>
-                    {keyConceptsList[index] || `Concept ${index + 1}`}
+                      {keyConceptsList[index] || `Concept ${index + 1}`}
                     </AccordionTrigger>
                     <AccordionContent>
-                    <p className="mb-2">{description}</p>
-                    {/* Example Diagram/Image */}
-                    {studyMaterials.diagrams && (
+                      <p className="mb-2">{description}</p>
+                      {/* Example Diagram/Image */}
+                      {studyMaterials.diagrams && (
                         <img
-                        src="https://picsum.photos/400/200"
-                        alt="Diagram"
-                        className="rounded-md shadow-md"
+                          src="https://picsum.photos/400/200"
+                          alt="Diagram"
+                          className="rounded-md shadow-md"
                         />
-                    )}
+                      )}
                     </AccordionContent>
-                </AccordionItem>
+                  </AccordionItem>
                 ))}
-            </Accordion>
+              </Accordion>
             </CardContent>
           </Card>
-
 
           {/* Quiz (MCQ Implementation) */}
           <Card className="mt-4">
@@ -221,31 +219,31 @@ const SearchResultsPage = () => {
               )}
             </CardContent>
           </Card>
-             {/* Topic Summary Section */}
-             <Card className="mt-4">
-              <CardHeader>
-                <CardTitle>Topic Summary</CardTitle>
-                <CardDescription>A brief overview of the topic.</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>{studyMaterials.keyConcepts}</p>
-              </CardContent>
-            </Card>
-            <div className="mb-8"></div>
+          {/* Topic Summary Section */}
+          <Card className="mt-4">
+            <CardHeader>
+              <CardTitle>Topic Summary</CardTitle>
+              <CardDescription>A brief overview of the topic.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p>{studyMaterials.keyConcepts}</p>
+            </CardContent>
+          </Card>
+          <div className="mb-8"></div>
 
 
         </div>
       )}
-        <style jsx>{`
+      <style jsx>{`
         .flip-card {
           background-color: transparent;
-          width: 400px; /* Increased width here */
+          width: 100%;
           height: 200px;
           border: 1px solid #f1f1f1;
-          perspective: 1000px; /* Remove this if you don't want the 3D effect */
+          perspective: 1000px;
+          margin-bottom: 10px; /* Space between cards */
         }
 
-        /* This container is needed to position the front and back side */
         .flip-card-inner {
           position: relative;
           width: 100%;
@@ -255,21 +253,18 @@ const SearchResultsPage = () => {
           transform-style: preserve-3d;
         }
 
-        /* Do an horizontal flip when the flip-card container is hovered over */
         .flip-card:hover .flip-card-inner {
           transform: rotateY(180deg);
         }
 
-        /* Position the front and back side */
         .flip-card-front, .flip-card-back {
           position: absolute;
           width: 100%;
           height: 100%;
-          -webkit-backface-visibility: hidden; /* Safari */
+          -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
         }
 
-        /* Style the front side (fallback if image is missing) */
         .flip-card-front {
           background-color: #bbb;
           color: black;
@@ -279,7 +274,6 @@ const SearchResultsPage = () => {
           padding: 10px;
         }
 
-        /* Style the back side */
         .flip-card-back {
           background-color: #d4d0b9;
           color: black;
@@ -292,7 +286,7 @@ const SearchResultsPage = () => {
 
         @media (max-width: 768px) {
           .flip-card {
-            width: 100%; /* Make flashcards full width on smaller screens */
+            width: 100%;
           }
         }
       `}</style>

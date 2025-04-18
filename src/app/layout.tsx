@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'StudyGenius',
+  title: 'Learnify',
   description: 'AI Based Smart Study App',
 };
 
@@ -37,4 +37,3 @@ export default function RootLayout({
     </html>
   );
 }
-

@@ -13,7 +13,7 @@ body {
     --foreground: 34, 57%, 11%;
     --card: 28, 33%, 93%;
     --card-foreground: 34, 57%, 11%;
-    --popover: 28, 33%, 93%;
+    --popover: 20, 10%, 48%;
     --popover-foreground: 34, 57%, 11%;
     --primary: 144, 69%, 15%;
     --primary-foreground: 28, 33%, 93%;
@@ -50,7 +50,7 @@ body {
     --foreground: 28, 33%, 93%;
     --card: 34, 57%, 11%;
     --card-foreground: 28, 33%, 93%;
-    --popover: 34, 57%, 11%;
+    --popover: 20, 10%, 48%;
     --popover-foreground: 28, 33%, 93%;
     --primary: 28, 33%, 93%;
     --primary-foreground: 144, 69%, 15%;
@@ -91,3 +91,4 @@ body {
     @apply bg-background text-foreground;
   }
 }
+

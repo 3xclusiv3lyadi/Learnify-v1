@@ -50,6 +50,7 @@ const HomeScreen = () => {
             <AvatarFallback>{user?.displayName?.substring(0, 2) || 'JD'}</AvatarFallback>
           </Avatar>
           <span className="text-sm font-medium">{user?.displayName || 'Learner'}</span>
+          <Badge variant="secondary">1200 XP</Badge>
         </div>
         {/* You can add more navigation items here if needed */}
       </div>

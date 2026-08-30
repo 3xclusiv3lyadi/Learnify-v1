@@ -39,3 +39,11 @@ next-env.d.ts
 
 .genkit/*
 *.zip
+
+# environment variables
+.env
+.env.local
+.env.*.local
+
+# Firebase Studio
+.idx/

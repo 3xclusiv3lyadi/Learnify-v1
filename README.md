@@ -14,23 +14,6 @@ Learnify is a web-based learning application designed to make studying more inte
 - XP and leaderboard system
 - Interactive and animated user interface
 
-## How It Works
-
-Study Material or Topic
-        |
-        v
-   AI Processing
-        |
-        v
-+-------------------+
-| Key Points        |
-| Flashcards        |
-| Quizzes           |
-+-------------------+
-        |
-        v
-Interactive Learning
-
 Learnify combines AI-generated study resources with interactive elements to create a more engaging revision experience.
 
 ## Tech Stack
